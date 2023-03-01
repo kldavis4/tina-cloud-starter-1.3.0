@@ -7,12 +7,34 @@ import { ColorPickerInput } from "../components/fields/color";
 import { iconSchema } from "../components/util/icon";
 
 const config = defineConfig({
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
+ // clientId: '85696c95-dd79-4ce1-a1e6-22b37a63827c', // Get this from tina.io
+ // token: 'effdd9eb69da5f829fca5b37e1c5185a3b864add', // Get this from tina.io
+  //pr1767
+//   clientId: '1c361599-e5c1-4fff-bda1-c65b1a8c7470', // Get this from tina.io
+//   token: '8dc3fcd5c7f2581b25fc336110899343566b8021', // Get this from tina.io
+  //stage
+  clientId: '252d46de-edde-4c8f-951f-666728f91530',
+  token: '9aaba58db756e5b16dd6317066364c26a1adc0b9',
+  tinaioConfig: {
+    // frontendUrlOverride: process.env.NEXT_PUBLIC_TINA_URL || 'http://localhost:3002',
+    // contentApiUrlOverride: process.env.NEXT_PUBLIC_TINA_CONTENT_URL || 'https://content.kelly.tinajs.dev',
+    // identityApiUrlOverride: process.env.NEXT_PUBLIC_TINA_IDENTITY_URL || 'https://identity.kelly.tinajs.dev',
+    // assetsApiUrlOverride: process.env.NEXT_PUBLIC_TINA_ASSETS_URL || 'https://assets-api-local-kldavis4.tinajs.dev',
+    // PR
+    // frontendUrlOverride: process.env.NEXT_PUBLIC_TINA_URL || 'https://pr1767-app.tinajs.dev',
+    // contentApiUrlOverride: process.env.NEXT_PUBLIC_TINA_CONTENT_URL || 'https://pr1767-content.tinajs.dev',
+    // identityApiUrlOverride: process.env.NEXT_PUBLIC_TINA_IDENTITY_URL || 'https://pr1767-identity.tinajs.dev',
+    // assetsApiUrlOverride: process.env.NEXT_PUBLIC_TINA_ASSETS_URL || 'https://assets-api-pr1767.tinajs.dev',
+    // staging
+    frontendUrlOverride: process.env.NEXT_PUBLIC_TINA_URL || 'https://app.tinajs.dev',
+    contentApiUrlOverride: process.env.NEXT_PUBLIC_TINA_CONTENT_URL || 'https://content.tinajs.dev',
+    identityApiUrlOverride: process.env.NEXT_PUBLIC_TINA_IDENTITY_URL || 'https://identity.tinajs.dev',
+    assetsApiUrlOverride: process.env.NEXT_PUBLIC_TINA_ASSETS_URL || 'https://assets-api.tinajs.dev',
+  },
   branch:
     process.env.NEXT_PUBLIC_TINA_BRANCH! || // custom branch env override
     process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF! || // Vercel branch env
     process.env.HEAD!, // Netlify branch env
-  token: process.env.TINA_TOKEN!,
   media: {
     // If you wanted cloudinary do this
     // loadCustomStore: async () => {
@@ -44,6 +66,11 @@ const config = defineConfig({
         fields: [
           {
             type: "string",
+            name: "count",
+            label: "Draft"
+          },
+          {
+            type: "string",
             label: "Title",
             name: "title",
             isTitle: true,
@@ -70,9 +97,14 @@ const config = defineConfig({
             label: "Posted Date",
             name: "date",
             ui: {
-              dateFormat: "MMMM DD YYYY",
-              timeFormat: "hh:mm A",
+              dateFormat: "YYYY MM DD",
             },
+          },
+          {
+            type: "datetime",
+            label: "Created At",
+            name: "createdAt",
+            required: true,
           },
           {
             type: "rich-text",
